@@ -41,12 +41,9 @@ const createSendToken = (user, statusCode, req, res) => {
 exports.protect = catchAsync(async (req, res, next) => {
     // 1) getting token and check if it's there
     let token;
-    console.log(req.headers.authorization);
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         // Reading token starts with Bearer from authorization header - postman (testing) -
-        console.log('hi');
         token = req.headers.authorization.split(' ')[1];
-        console.log(req.headers.authorization);
 
     } else if (req.cookies.jwt) {
         // Reading token from cookie stored in web browser
@@ -73,7 +70,6 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
 
     req.user = currentUser;
-    console.log(req.user);
     res.locals.user = currentUser;
     next();
 });
@@ -100,7 +96,6 @@ exports.signUp = catchAsync(async (req, res, next) => {
         passwordConfirm: req.body.passwordConfirm,
     });
     const url = `${req.protocol}://${req.get('host')}/me`;
-    console.log(url);
     await new Email(newUser, url).sendWelcome();
     createSendToken(newUser, 201, req, res);
 });

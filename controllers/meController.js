@@ -34,7 +34,7 @@ exports.resizeUserPhoto = (req, res, next) => {
     if (!req.file) return next();
     req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 
-    console.log('RESIZE: ', req.user);
+    // console.log('RESIZE: ', req.user);
 
     if (req.user.photo !== 'default.jpg') {
         // DELTEE THE PREVIOUS PHOTO

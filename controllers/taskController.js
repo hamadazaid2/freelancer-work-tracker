@@ -155,7 +155,6 @@ exports.updateTask = catchAsync(async (req, res, next) => {
 
     // 4) Check if the user want to update the project of task
     if (req.body.project) {
-        console.log(req.body.project);
         const newProject = await Project.findById(req.body.project).where({ user: req.user.id });
         if (!newProject) return next(new AppError('The project you want to update task to is not found!', 404));
     }

@@ -23,7 +23,6 @@ module.exports = class Email {
                 }
             });
         }
-        console.log('Here');
 
         // ELSE (DEVELOPMENT) => SEND TO MAILTRAP
         return nodemailer.createTransport({

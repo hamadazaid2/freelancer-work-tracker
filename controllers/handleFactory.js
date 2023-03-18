@@ -1,6 +1,8 @@
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/AppError');
 const APIFeatures = require('./../utils/apiFeatures');
+const authController = require('./authenticationController');
+const User = require('../models/userModel');
 
 
 exports.getAll = Model => catchAsync(async (req, res, next) => {
@@ -43,7 +45,15 @@ exports.getOne = (Model, popOptions) => catchAsync(async (req, res, next) => {
     });
 })
 exports.createOne = Model => catchAsync(async (req, res, next) => {
+
     const doc = await Model.create(req.body);
+    if (req.body.password || req.body.password) {
+        const user = await Model.findById(doc._id);
+        if (!user) return next(new AppError('Something went wrong when user created!', 404));
+        user.password = req.body.password;
+        user.passwordConfirm = req.body.passwordConfirm;
+        user.save();
+    }
     res.status(201).json({
         status: 'success',
         data: {
@@ -53,6 +63,20 @@ exports.createOne = Model => catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = Model => catchAsync(async (req, res, next) => {
+    if (req.body.password || req.body.passwordConfirm) {
+        // 1) Get user from DB
+        const user = await User.findById(req.params.id).select('+password');
+        if (!user) return next(new AppError('There is no user with that id!', 404));
+
+        // 2) If so, update password
+        user.password = req.body.password;
+        user.passwordConfirm = req.body.passwordConfirm;
+        await user.save();
+
+        delete req.body.password;
+        delete req.body.passwordConfirm;
+    }
+
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,

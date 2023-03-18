@@ -15,7 +15,6 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 
 // Protect all routes after this middleware
 // For the logged in user
-// router.use(authController.protect);
 
 // router.route('/me').get(userController.getMe, userController.getUser);
 // router.patch('/updateMyPassword', authController.updatePassword);
@@ -27,6 +26,7 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 // router.delete('/deleteMe', userController.deleteMe);
 
 
+router.use(authController.protect);
 
 // --------------------------------------------
 // Must be logged in and ADMIN
