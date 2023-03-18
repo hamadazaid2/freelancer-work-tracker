@@ -7,7 +7,7 @@ const router = express.Router({ mergeParams: true });
 // /api/project/:projectId/task (Get all tasks for this project)
 // /api/project/:projectId/task/:taskId (get/update/delete for this task in this project)
 
-router.use(authController.protect)
+router.use(authController.protect, taskController.checkNestedRoute)
 
 router
     .route('/')

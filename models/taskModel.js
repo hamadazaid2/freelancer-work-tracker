@@ -126,7 +126,6 @@ taskSchema.post(/^findOneAnd/, function (doc) {
 
     // this: refers to query  -  doc: refers to the updated document 
     Task.updateProject(doc.project._id);
-
     if (this.taskBeforeUpdate) { // Update the previous project status
         Task.updateProject(this.taskBeforeUpdate.project._id);
 

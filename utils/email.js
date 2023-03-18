@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
-const pug = require('pug')
 const htmlToText = require('html-to-text')
+const pug = require('pug')
 
 module.exports = class Email {
 
@@ -23,6 +23,7 @@ module.exports = class Email {
                 }
             });
         }
+        console.log('Here');
 
         // ELSE (DEVELOPMENT) => SEND TO MAILTRAP
         return nodemailer.createTransport({
@@ -63,7 +64,7 @@ module.exports = class Email {
     }
 
     async sendWelcome() {
-        await this.send('welcome', 'Welcome to the natours family!');
+        await this.send('welcome', 'Welcome to the Freelancer Work Tracker website family!');
     }
 
     async sendPasswordReset() {

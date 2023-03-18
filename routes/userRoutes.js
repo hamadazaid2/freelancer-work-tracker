@@ -5,6 +5,7 @@ const authController = require('./../controllers/authenticationController');
 
 const router = express.Router();
 
+// auth routes
 router.post('/signup', authController.signUp);
 router.post('/login', authController.login);
 router.get('/logout', authController.logout);
@@ -13,6 +14,7 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 
 
 // Protect all routes after this middleware
+// For the logged in user
 router.use(authController.protect);
 
 router.route('/me').get(userController.getMe, userController.getUser);
@@ -25,6 +27,9 @@ router.patch('/updateMe',
 router.delete('/deleteMe', userController.deleteMe);
 
 
+
+// --------------------------------------------
+// Must be logged in and ADMIN
 router.use(authController.restrictTo('admin'));
 router
     .route('/')
