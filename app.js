@@ -10,6 +10,7 @@ const projectRoutes = require('./routes/projectRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const statusRoutes = require('./routes/statusRoutes');
 const userRoutes = require('./routes/userRoutes');
+const meRoutes = require('./routes/meRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 
 
@@ -58,7 +59,8 @@ app.use((req, res, next) => {
 app.use('/api/projects', projectRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/status', statusRoutes);
-app.use('/api/user', userRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/me', meRoutes);
 
 
 app.use(globalErrorHandler);

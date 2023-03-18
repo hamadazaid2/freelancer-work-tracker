@@ -15,22 +15,23 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 
 // Protect all routes after this middleware
 // For the logged in user
-router.use(authController.protect);
+// router.use(authController.protect);
 
-router.route('/me').get(userController.getMe, userController.getUser);
-router.patch('/updateMyPassword', authController.updatePassword);
+// router.route('/me').get(userController.getMe, userController.getUser);
+// router.patch('/updateMyPassword', authController.updatePassword);
 
-router.patch('/updateMe',
-    userController.uploadUserPhoto,
-    userController.resizeUserPhoto,
-    userController.updateMe); //uploadUserPhoto is a middleware
-router.delete('/deleteMe', userController.deleteMe);
+// router.patch('/updateMe',
+//     userController.uploadUserPhoto,
+//     userController.resizeUserPhoto,
+//     userController.updateMe); //uploadUserPhoto is a middleware
+// router.delete('/deleteMe', userController.deleteMe);
 
 
 
 // --------------------------------------------
 // Must be logged in and ADMIN
 router.use(authController.restrictTo('admin'));
+
 router
     .route('/')
     .get(userController.getAllUsers)

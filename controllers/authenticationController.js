@@ -39,11 +39,12 @@ const createSendToken = (user, statusCode, req, res) => {
 
 // ** Middleware for protect routes to just logged in users **
 exports.protect = catchAsync(async (req, res, next) => {
-
     // 1) getting token and check if it's there
     let token;
+    console.log(req.headers.authorization);
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         // Reading token starts with Bearer from authorization header - postman (testing) -
+        console.log('hi');
         token = req.headers.authorization.split(' ')[1];
         console.log(req.headers.authorization);
 
@@ -72,6 +73,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
 
     req.user = currentUser;
+    console.log(req.user);
     res.locals.user = currentUser;
     next();
 });
