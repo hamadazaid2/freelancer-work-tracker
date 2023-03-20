@@ -90,6 +90,8 @@ exports.createTask = catchAsync(async (req, res, next) => {
         // 1) Check if the project id sent by req.body is valid!
         const project = await Project.findById(req.body.project);
         if (!project) return next(new AppError('The project you want to add task to in not found!', 404));
+        // 2) Add the user data to the task object
+        req.body.user = req.user._id;
         const task = await Task.create(req.body);
         res.status(201).json({
             status: 'success',

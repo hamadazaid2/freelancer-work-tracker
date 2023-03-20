@@ -1,0 +1,22 @@
++ AUTH
+    - Signup
+    - login 
+    - Forgot Password
+    - Reset Password 
++ PROJECT
+    - Overview
+    - Project
+    - Create, Update
++ TASK Nested (USER)
+    - Overview
+    - Task
+    - Create, Update
++ TASK (ADMIN)
+    - Overview
+    - Task
+    - Create, Update (Same just in nested can't update project)
+
++ USER (ADMIN)
+    - Overview
+    - Create, Update
++ ME

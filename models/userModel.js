@@ -24,6 +24,10 @@ const UserSchema = new mongoose.Schema({
         enum: ['user', 'admin'],
         default: 'user',
     },
+    hourlyPrice: {
+        type: Number,
+        required: [true, 'Please provide your hourly price!']
+    },
     password: {
         type: String,
         required: [true, 'Please provide a password'],

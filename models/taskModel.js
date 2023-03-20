@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Project = require('./projectModel');
+const User = require('./userModel');
 
 
 const taskSchema = new mongoose.Schema(
@@ -65,9 +66,12 @@ taskSchema.statics.checkUpdateProjectWorkingMinutesAndPrice = async function (pr
         }
     ]);
 
+    const project = await Project.findById(projectId);
+    const { hourlyPrice } = await User.findById(project.user);
+
     const pj = await Project.findByIdAndUpdate(projectId, {
         numberOfWorkingMinutes: aggregatedData[0] ? aggregatedData[0].workingMinutes : 0,
-        price: aggregatedData[0] ? ((aggregatedData[0].workingMinutes / 60) * 100) : 0
+        price: aggregatedData[0] ? ((aggregatedData[0].workingMinutes / 60) * hourlyPrice) : 0
     }, {
         new: true,
         runValidators: true
@@ -80,7 +84,7 @@ taskSchema.statics.updateProject = function (projectId) {
 }
 
 // ---- 
-taskSchema.post('save', function () {
+taskSchema.post('save', function (doc) {
     Task.updateProject(this.project);
 
 })
