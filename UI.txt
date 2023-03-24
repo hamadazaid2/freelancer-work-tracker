@@ -1,22 +1,29 @@
 + AUTH
-    - Signup
-    - login 
-    - Forgot Password
-    - Reset Password 
+    - Signup {name, email, password, passwordConfirm, hourlyPrice}
+    - login {email, password}
+    - Forgot Password {email}
+    - Reset Password {...}
 + PROJECT
     - Overview
     - Project
-    - Create, Update
+    - Create {name, desciption, numberOfWorkingMinutes, status, price}
+    - Update {name, desciption, numberOfWorkingMinutes, status, price}
+    - Delete (NOT UI)
 + TASK Nested (USER)
     - Overview
-    - Task
-    - Create, Update
+    - Task 
+    - Create {name, desciption, priority, expectedWorkingMinutes, status, project} // On it's own projects
+    - Update {name, desciption, priority, expectedWorkingMinutes, status, project}
 + TASK (ADMIN)
     - Overview
     - Task
-    - Create, Update (Same just in nested can't update project)
+    - Create, Update (Same just in nested can't view, update to, or delete other prjects are not belong to it) 
 
 + USER (ADMIN)
     - Overview
-    - Create, Update
+    - Create, Update {name, email, password, passwordConfirm, hourlyPrice}
 + ME
+    - User Info 
+    - Update Me (can't update password here)
+    - Update My Password (current, new, confirm password)
+    - Delete Me
