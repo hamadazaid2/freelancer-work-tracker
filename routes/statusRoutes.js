@@ -13,4 +13,14 @@ router.post('/', async (req, res, next) => {
     });
 });
 
+router.get('/', async (req, res, next) => {
+    const statuses = await Status.find();
+    res.status(200).json({
+        status: 'success',
+        data: {
+            data: statuses
+        }
+    });
+});
+
 module.exports = router;

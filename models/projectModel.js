@@ -20,15 +20,14 @@ const projectSchema = new mongoose.Schema({
         default: 0
     },
     status: {
-        type: String,
-        enum: ['In Progress', 'Done'],
-        default: 'Done'
+        type: mongoose.Schema.ObjectId,
+        ref: 'Status',
     },
     price: Number,
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        // required: [true, 'Project must belong user']
+        required: [true, 'Project must belong user']
     },
     customer: [
         {
@@ -45,7 +44,14 @@ const projectSchema = new mongoose.Schema({
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
 });
-
+projectSchema.pre(/^find/, function (next) {
+    this.populate({ path: 'status', select: 'name color' });
+    next();
+});
+projectSchema.pre('save', function (next) {
+    this.populate({ path: 'status', select: 'name color' });
+    next();
+});
 projectSchema.virtual('workingHours').get(function () {
     return (this.numberOfWorkingMinutes / 60).toFixed(2);
 });

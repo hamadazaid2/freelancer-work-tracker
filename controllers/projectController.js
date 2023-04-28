@@ -1,3 +1,4 @@
+const Status = require('../models/statusModel');
 const AppError = require('../utils/AppError');
 const Project = require('./../models/projectModel');
 const catchAsync = require('./../utils/catchAsync');
@@ -14,6 +15,7 @@ exports.getAll = catchAsync(async (req, res, next) => {
 });
 exports.getProject = catchAsync(async (req, res, next) => {
     req.body.user = req.user
+    console.log('here');
     const project = await Project.findById(req.params.id).where({ user: req.user._id });
     if (!project) return next(new AppError('No project found with that id!', 204));
     res.status(200).json({
@@ -25,6 +27,7 @@ exports.getProject = catchAsync(async (req, res, next) => {
 })
 
 exports.createProject = catchAsync(async (req, res, next) => {
+    req.body.status = req.body.status ? req.status : await Status.findOne({ name: 'Done' });
     const newProject = await Project.create({
         ...req.body,
         user: req.user._id

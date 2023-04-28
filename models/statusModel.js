@@ -9,6 +9,14 @@ const statusSchema = new mongoose.Schema(
                 values: ['To Do', 'In Progress', 'QA', 'Done'],
                 message: 'Status must be either \'To Do\', \'In Progress\', \'QA\' or \'Done\''
             }
+        },
+        color: {
+            type: String,
+            default: 'info',
+            enum: {
+                values: ['success', 'danger', 'warning', 'info'],
+                message: 'Status color must be either \'success\', \'danger\', \'warning\' or \'info\''
+            }
         }
     }, {
     toJSON: { virtuals: true },
