@@ -17,12 +17,12 @@ const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
 
-// Access - Control - Allow - Origin * Allow doing requests from other websites(Simple request: GET, POST)
+// // Access - Control - Allow - Origin * Allow doing requests from other websites(Simple request: GET, POST)
+// app.use(cors());
+
+// // Allow doing requests from other websites (NONSimple request: PUT, PATCH, DELETE)
+// app.options('*', cors());
 app.use(cors());
-
-// Allow doing requests from other websites (NONSimple request: PUT, PATCH, DELETE)
-app.options('*', cors());
-
 
 
 app.use(express.static(path.join(__dirname, 'public')));
