@@ -27,7 +27,7 @@ exports.getProject = catchAsync(async (req, res, next) => {
 })
 
 exports.createProject = catchAsync(async (req, res, next) => {
-    req.body.status = req.body.status ? req.status : await Status.findOne({ name: 'Done' });
+    req.body.status = req.body.status ? req.body.status : await Status.findOne({ name: 'Done' });
     const newProject = await Project.create({
         ...req.body,
         user: req.user._id
