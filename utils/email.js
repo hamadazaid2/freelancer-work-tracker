@@ -5,7 +5,6 @@ const pug = require('pug')
 module.exports = class Email {
 
     constructor(user, url) {
-
         this.to = user.email,
             this.firstName = user.name.split(' ')[0],
             this.url = url,
@@ -13,16 +12,17 @@ module.exports = class Email {
     }
 
     newTransport() {
-        if (process.env.NODE_ENV === 'production') {
-            // Sendgrid
-            return nodemailer.createTransport({
-                service: 'SendGrid', // sendGrid is a pre-defined service 
-                auth: {
-                    user: process.env.SENDGRID_USERNAME,
-                    pass: process.env.SENDGRID_PASSWORD
-                }
-            });
-        }
+
+        // if (process.env.NODE_ENV === 'production') {
+        //     // Sendgrid
+        //     return nodemailer.createTransport({
+        //         service: 'SendGrid', // sendGrid is a pre-defined service 
+        //         auth: {
+        //             user: process.env.SENDGRID_USERNAME,
+        //             pass: process.env.SENDGRID_PASSWORD
+        //         }
+        //     });
+        // }
 
         // ELSE (DEVELOPMENT) => SEND TO MAILTRAP
         return nodemailer.createTransport({

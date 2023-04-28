@@ -8,9 +8,13 @@ const handleCastErrorDB = err => {
 }
 
 const handleDuplicateFieldsDB = err => {
-    // this is an error created by Mongo
-    const vaule = err.errmsg.match(/(["'])(\\?.)*?\1/)[0]; // بدي اجيب القيمة المكررة عشان اعرضها 
-    const message = `Duplicate field value: ${value} please try antoher value!`;
+    // Extract the email address from the error message
+    const emailRegex = /email: "([^"]+)"/;
+    const match = err.message.match(emailRegex);
+    const email = match ? match[1] : null;
+
+    // Create an error message with the duplicated email
+    const message = email ? `Duplicate field value: ${email}. Please try another value!` : 'Unknown duplicate field error.';
     return new AppError(message, 400);
 }
 
