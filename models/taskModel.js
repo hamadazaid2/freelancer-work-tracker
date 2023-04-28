@@ -86,7 +86,6 @@ taskSchema.statics.updateProject = function (projectId) {
 // ---- 
 taskSchema.post('save', function (doc) {
     Task.updateProject(this.project);
-
 })
 
 

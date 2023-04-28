@@ -44,11 +44,13 @@ exports.protect = catchAsync(async (req, res, next) => {
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         // Reading token starts with Bearer from authorization header - postman (testing) -
         token = req.headers.authorization.split(' ')[1];
-
+        console.log(req.headers.authorization);
     } else if (req.cookies.jwt) {
         // Reading token from cookie stored in web browser
         token = req.cookies.jwt;
     }
+
+    console.log(token);
 
     if (!token) {
         return next(new AppError('You are not logged in! Please login to get access.', 401)); // 401 => unauthorized
@@ -94,6 +96,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
         email: req.body.email,
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
+        hourlyPrice: req.body.hourlyPrice
     });
     const url = `${req.protocol}://${req.get('host')}/me`;
     await new Email(newUser, url).sendWelcome();
