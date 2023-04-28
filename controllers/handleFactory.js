@@ -25,7 +25,7 @@ exports.getAll = Model => catchAsync(async (req, res, next) => {
         status: 'OK',
         results: doc.length,
         data: {
-            date: doc
+            data: doc
         },
     });
 })
