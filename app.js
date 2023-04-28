@@ -18,11 +18,6 @@ const app = express();
 
 // Access - Control - Allow - Origin * Allow doing requests from other websites(Simple request: GET, POST)
 app.use(cors());
-// api.natours.com, front - end natours.com
-app.use(cors({
-    // Allow doing Simple request for just a specific website
-    origin: 'https://freelancer-work-tracker-production.up.railway.app'
-}))
 
 // Allow doing requests from other websites (NONSimple request: PUT, PATCH, DELETE)
 app.options('*', cors());
