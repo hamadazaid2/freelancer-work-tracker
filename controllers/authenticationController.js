@@ -98,8 +98,12 @@ exports.signUp = catchAsync(async (req, res, next) => {
         passwordConfirm: req.body.passwordConfirm,
         hourlyPrice: req.body.hourlyPrice
     });
+    console.log('1: good');
     const url = `${req.protocol}://${req.get('host')}/me`;
-    await new Email(newUser, url).sendWelcome();
+    console.log('2: good');
+    // await new Email(newUser, url).sendWelcome();
+    await new Email
+    console.log('3: good');
     createSendToken(newUser, 201, req, res);
 });
 
